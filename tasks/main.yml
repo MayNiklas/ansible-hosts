@@ -13,3 +13,17 @@
       192.168.5.10    DS1819.local
       192.168.5.15    vsphere
       192.168.5.15    vsphere.local
+
+- name: Install stormssh into ansible's python packages
+  pip:
+    name: stormssh
+    executable: "{{ ansible_facts.python.executable | replace('python', 'pip') }}"
+
+- name: Add aida to ~/.ssh/config
+  community.general.ssh_config:
+    ssh_config_file: "{{ ansible_env.HOME }}/.ssh/config"
+    host: "aida"
+    hostname: "192.168.5.20"
+    remote_user: "nik"
+    port: "22"
+    state: present
