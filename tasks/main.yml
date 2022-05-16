@@ -4,7 +4,7 @@
 - name: /etc/hosts
   become: true
   blockinfile:
-    path: "/etc/hosts"
+    path: /etc/hosts
     marker: "# {mark} /etc/hosts - ANSIBLE MANAGED BLOCK"
     block: |
       192.168.5.1     pfsense
@@ -27,8 +27,8 @@
 - name: Add aida to ~/.ssh/config
   community.general.ssh_config:
     ssh_config_file: "{{ ansible_env.HOME }}/.ssh/config"
-    host: "aida"
-    hostname: "192.168.5.20"
-    remote_user: "nik"
+    host: aida
+    hostname: 192.168.5.20
+    remote_user: nik
     port: "22"
     state: present
