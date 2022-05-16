@@ -19,6 +19,11 @@
     name: stormssh
     executable: "{{ ansible_facts.python.executable | replace('python', 'pip') }}"
 
+- name: Create ~/.ssh if directory does not exist
+  file:
+    path: "{{ ansible_env.HOME }}/.ssh"
+    state: directory
+
 - name: Add aida to ~/.ssh/config
   community.general.ssh_config:
     ssh_config_file: "{{ ansible_env.HOME }}/.ssh/config"
