@@ -23,7 +23,7 @@
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.ssh"
     state: directory
-    mode: 0600
+    mode: 0700
 
 - name: Add aida to ~/.ssh/config
   community.general.ssh_config:
