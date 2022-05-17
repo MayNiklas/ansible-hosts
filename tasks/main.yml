@@ -25,11 +25,13 @@
     state: directory
     mode: 0700
 
-- name: Add aida to ~/.ssh/config
+- name: Add hosts to ~/.ssh/config
   community.general.ssh_config:
     ssh_config_file: "{{ ansible_env.HOME }}/.ssh/config"
-    host: aida
-    hostname: 192.168.5.20
-    remote_user: nik
-    port: "22"
+    host: "{{ item.host }}"
+    hostname: "{{ item.ip }}"
+    remote_user: "{{ item.user }}"
+    port: "{{ item.port }}"
     state: present
+  loop: "{{ ssh_config }}"
+  when: ssh_config|default([])|count > 0
