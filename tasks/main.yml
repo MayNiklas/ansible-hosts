@@ -30,8 +30,9 @@
     ssh_config_file: "{{ ansible_env.HOME }}/.ssh/config"
     host: "{{ item.host }}"
     hostname: "{{ item.ip }}"
-    remote_user: "{{ item.user }}"
-    port: "{{ item.port }}"
+    remote_user: "{{ item.user|default('root') }}"
+    port: "{{ item.port|default(22) }}"
+    forward_agent: "{{ item.forward|default(false) }}"
     state: present
   loop: "{{ ssh_config }}"
   when: ssh_config|default([])|count > 0
