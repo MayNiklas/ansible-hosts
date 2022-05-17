@@ -3,7 +3,7 @@
 
 - name: /etc/hosts
   become: true
-  blockinfile:
+  ansible.builtin.blockinfile:
     path: /etc/hosts
     marker: "# {mark} /etc/hosts - ANSIBLE MANAGED BLOCK"
     block: |
@@ -15,14 +15,15 @@
       192.168.5.15    vsphere.local
 
 - name: Install stormssh into ansible's python packages
-  pip:
+  ansible.builtin.pip:
     name: stormssh
     executable: "{{ ansible_facts.python.executable | replace('python', 'pip') }}"
 
 - name: Create ~/.ssh if directory does not exist
-  file:
+  ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.ssh"
     state: directory
+    mode: 0600
 
 - name: Add aida to ~/.ssh/config
   community.general.ssh_config:
