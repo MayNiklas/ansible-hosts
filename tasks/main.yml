@@ -10,10 +10,10 @@
       192.168.5.10    DS1819
       192.168.5.10    DS1819.local
 
-- name: Install stormssh into ansible's python packages
-  ansible.builtin.pip:
-    name: stormssh
-    executable: "{{ ansible_facts.python.executable | replace('python', 'pip') }}"
+# - name: Install stormssh into ansible's python packages
+#   ansible.builtin.pip:
+#     name: stormssh
+#     executable: "{{ ansible_facts.python.executable | replace('python', 'pip') }}"
 
 - name: Create ~/.ssh if directory does not exist
   ansible.builtin.file:
@@ -21,14 +21,14 @@
     state: directory
     mode: "0700"
 
-- name: Add hosts to ~/.ssh/config
-  community.general.ssh_config:
-    ssh_config_file: "{{ ansible_env.HOME }}/.ssh/config"
-    host: "{{ item.host }}"
-    hostname: "{{ item.ip }}"
-    remote_user: "{{ item.user|default('root') }}"
-    port: "{{ item.port|default(22) }}"
-    forward_agent: "{{ item.forward|default(false) }}"
-    state: present
-  loop: "{{ ssh_config }}"
-  when: ssh_config|default([])|count > 0
+# - name: Add hosts to ~/.ssh/config
+#   community.general.ssh_config:
+#     ssh_config_file: "{{ ansible_env.HOME }}/.ssh/config"
+#     host: "{{ item.host }}"
+#     hostname: "{{ item.ip }}"
+#     remote_user: "{{ item.user|default('root') }}"
+#     port: "{{ item.port|default(22) }}"
+#     forward_agent: "{{ item.forward|default(false) }}"
+#     state: present
+#   loop: "{{ ssh_config }}"
+#   when: ssh_config|default([])|count > 0
